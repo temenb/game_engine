@@ -5,6 +5,7 @@ import logger from "@shared/logger";
 
 const PORT = config.port;
 
+logger.log(PORT);
 server.bindAsync(`0.0.0.0:${PORT}`, grpc.ServerCredentials.createInsecure(), () => {
     logger.log(`🚀 gRPC server running on port ${PORT}`);
 });
