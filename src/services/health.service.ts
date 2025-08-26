@@ -1,6 +1,6 @@
-import logger from "@shared/logger";
+// import logger from "@shared/logger";
 // import { broadcastEvent } from '../utils/kafka';
-// import prisma from '../utils/prisma';
+import prisma from '../utils/prisma';
 
 const startedAt = Date.now();
 
@@ -45,14 +45,13 @@ export const readyz = async () => {
 };
 
 export const checkPostgres = async (): Promise<boolean> => {
-  return false;
-  // try {
-  //   await prisma.$queryRaw`SELECT 1`;
-  //   return true;
-  // } catch (err) {
-  //   console.error('❌ Prisma/Postgres health check failed:', err);
-  //   return false;
-  // }
+  try {
+    await prisma.$queryRaw`SELECT 1`;
+    return true;
+  } catch (err) {
+    console.error('❌ Prisma/Postgres health check failed:', err);
+    return false;
+  }
 };
 
 export const checkKafka = async (): Promise<boolean> => {
