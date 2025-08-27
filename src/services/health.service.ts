@@ -1,6 +1,7 @@
-// import logger from "@shared/logger";
-// import { broadcastEvent } from '../utils/kafka';
 import prisma from '../utils/prisma';
+import logger from "@shared/logger";
+import kafkaConfig from "../config/kafka.config";
+import { createProducer } from '@shared/kafka';
 
 const startedAt = Date.now();
 
@@ -55,12 +56,14 @@ export const checkPostgres = async (): Promise<boolean> => {
 };
 
 export const checkKafka = async (): Promise<boolean> => {
-  return false;
-  // try {
-  //   await broadcastEvent('healthcheck', [{ value: 'ping' }]);
-  //   return true;
-  // } catch (err) {
-  //   logger.error('❌ Kafka health check failed:', err);
-  //   return false;
-  // }
+  try {
+    const { clientId, brokers } = kafkaConfig;
+    const config = { clientId, brokers };
+    const producer = await createProducer(config);
+    producer.send({ topic: 'healthcheck' }, [{ value: 'ping' }]);
+    return true;
+  } catch (err) {
+    logger.error('❌ Kafka health check failed:', err);
+    return false;
+  }
 };
