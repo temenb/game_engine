@@ -1,5 +1,7 @@
 import * as grpc from '@grpc/grpc-js';
 import * as EngineGrpc from '../../generated/engine';
+import * as HealthGrpc from '../../generated//common/health';
+import * as EmptyGrpc from '../../generated//common/empty';
 import * as heathService from '../../services/health.service';
 
 export const callbackError = (callback: grpc.sendUnaryData<any>, err: unknown) => {
@@ -8,8 +10,8 @@ export const callbackError = (callback: grpc.sendUnaryData<any>, err: unknown) =
 };
 
 export const health = async (
-    call: grpc.ServerUnaryCall<EngineGrpc.Empty, EngineGrpc.HealthReport>,
-    callback: grpc.sendUnaryData<EngineGrpc.HealthReport>
+    call: grpc.ServerUnaryCall<EmptyGrpc.Empty, HealthGrpc.HealthReport>,
+    callback: grpc.sendUnaryData<HealthGrpc.HealthReport>
 ) => {
     try {
         const response = await heathService.health();
@@ -22,8 +24,8 @@ export const health = async (
 };
 
 export const status = async (
-  call: grpc.ServerUnaryCall<EngineGrpc.Empty, EngineGrpc.StatusInfo>,
-  callback: grpc.sendUnaryData<EngineGrpc.StatusInfo>
+  call: grpc.ServerUnaryCall<EmptyGrpc.Empty, HealthGrpc.StatusInfo>,
+  callback: grpc.sendUnaryData<HealthGrpc.StatusInfo>
 ) => {
     try {
         const response = await heathService.status();
@@ -36,8 +38,8 @@ export const status = async (
 };
 
 export const livez = async (
-  call: grpc.ServerUnaryCall<EngineGrpc.Empty, EngineGrpc.LiveStatus>,
-  callback: grpc.sendUnaryData<EngineGrpc.LiveStatus>
+  call: grpc.ServerUnaryCall<EmptyGrpc.Empty, HealthGrpc.LiveStatus>,
+  callback: grpc.sendUnaryData<HealthGrpc.LiveStatus>
 ) => {
     try {
         const response = await heathService.livez();
@@ -50,8 +52,8 @@ export const livez = async (
 };
 
 export const readyz = async (
-  call: grpc.ServerUnaryCall<EngineGrpc.Empty, EngineGrpc.ReadyStatus>,
-  callback: grpc.sendUnaryData<EngineGrpc.ReadyStatus>
+  call: grpc.ServerUnaryCall<EmptyGrpc.Empty, HealthGrpc.ReadyStatus>,
+  callback: grpc.sendUnaryData<HealthGrpc.ReadyStatus>
 ) => {
     try {
         const response = await heathService.readyz();

@@ -11,7 +11,7 @@ COPY services/engine/package*.json ./services/engine/
 COPY services/engine/jest.config.js ./services/engine/
 COPY services/engine/tsconfig.json ./services/engine/
 COPY services/engine/src ./services/engine/src/
-COPY services/engine/prisma ./services/engine/prisma/
+#COPY services/engine/prisma ./services/engine/prisma/
 COPY services/engine/__tests__ ./services/engine/__tests__/
 COPY services/engine/.env ./services/engine/.env
 
